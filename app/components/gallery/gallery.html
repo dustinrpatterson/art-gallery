@@ -1,0 +1,31 @@
+<!--form-->
+<div ng-show="gc.toggleForm">
+	<form ng-submit="gc.addPiece(gc.newPiece)">
+		<input ng-model="gc.newPiece.artist" type="text">
+		<input ng-model="gc.newPiece.title" type="text">
+		<input ng-model="gc.newPiece.url" type="text">
+		<button type="button" ng-click="gc.addPiece(gc.newPiece, true)">ADD + ANOTHER</button>
+		<button type="submit">SUBMIT</button>
+	</form>
+
+	<div>
+		<img src="{{gc.newPiece.url}}">
+		<h2>{{gc.newPiece.artist}}</h2>
+		<h6>{{gc.newPiece.title}}</h6>
+	</div>
+</div>
+<!--gallery-->
+<div ng-hide="gc.toggleForm">
+	<button type="button" ng-click="gc.toggleForm = !gc.toggleForm">Add Piece</button>
+	<input type="text" ng-model="gc.query">
+	<select ng-model="gc.filter">
+    <option value="year">Oldest - Newest</option>
+    <option value="-year">Newest - Oldest</option>
+  </select>
+	<div>
+		<div ng-repeat="piece in gc.gallery | filter: gc.query | orderBy: gc.filter" style="display:inline-block; margin: 10px">
+			<img ng-src="{{piece.url}}" alt="{{piece.title}}" width="200">
+			<h2>{{piece.artist}}</h2>
+			<h6>{{piece.title}}</h6>
+		</div>
+	</div>
